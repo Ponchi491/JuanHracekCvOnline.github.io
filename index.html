@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Juan Hracek — CV Web</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --paper:      #F6F4EE;
+    --paper-dim:  #ECE9DF;
+    --ink:        #1B1D1F;
+    --ink-soft:   #4B4F54;
+    --blue:       #1F3A5F;
+    --blue-deep:  #142A45;
+    --green:      #3F7D5C;
+    --amber:      #C7791B;
+    --line:       #D8D4C6;
+
+    --display: 'Space Grotesk', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+    --body: 'Inter', sans-serif;
+  }
+
+  *{ margin:0; padding:0; box-sizing:border-box; }
+
+  html{ scroll-behavior:smooth; }
+
+  body{
+    background:var(--paper);
+    color:var(--ink);
+    font-family:var(--body);
+    line-height:1.55;
+    -webkit-font-smoothing:antialiased;
+  }
+
+  a{ color:inherit; text-decoration:none; }
+
+  ::selection{ background:var(--green); color:var(--paper); }
+
+  @media (prefers-reduced-motion: reduce){
+    *{ animation:none !important; transition:none !important; }
+  }
+
+  /* ---------- utility ---------- */
+  .wrap{
+    max-width:1080px;
+    margin:0 auto;
+    padding:0 32px;
+  }
+  .eyebrow{
+    font-family:var(--mono);
+    font-size:12.5px;
+    letter-spacing:.12em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    display:flex;
+    align-items:center;
+    gap:10px;
+  }
+  .eyebrow::before{
+    content:"";
+    width:7px; height:7px;
+    background:var(--green);
+    border-radius:50%;
+    display:inline-block;
+  }
+
+  /* ---------- nav ---------- */
+  .nav{
+    position:sticky;
+    top:0;
+    z-index:50;
+    background:rgba(246,244,238,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-inner{
+    max-width:1080px;
+    margin:0 auto;
+    padding:18px 32px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+  }
+  .nav-id{
+    font-family:var(--mono);
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:.02em;
+  }
+  .nav-id span{ color:var(--green); }
+  .nav-links{
+    display:flex;
+    gap:28px;
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:.03em;
+  }
+  .nav-links a{
+    color:var(--ink-soft);
+    position:relative;
+    padding-bottom:4px;
+    transition:color .15s;
+  }
+  .nav-links a:hover, .nav-links a:focus-visible{ color:var(--ink); }
+  .nav-links a::after{
+    content:"";
+    position:absolute;
+    left:0; bottom:0;
+    width:0; height:2px;
+    background:var(--green);
+    transition:width .2s ease;
+  }
+  .nav-links a:hover::after, .nav-links a:focus-visible::after{ width:100%; }
+
+  /* ---------- hero ---------- */
+  .hero{
+    padding:72px 0 64px;
+    border-bottom:1px solid var(--line);
+    position:relative;
+    overflow:hidden;
+  }
+  .hero-inner{
+    display:grid;
+    grid-template-columns:1.35fr .85fr;
+    gap:56px;
+    align-items:center;
+  }
+  .hero h1{
+    font-family:var(--display);
+    font-size:clamp(40px, 6vw, 64px);
+    font-weight:700;
+    line-height:1.02;
+    letter-spacing:-.01em;
+    margin:18px 0 22px;
+  }
+  .hero h1 em{
+    font-style:normal;
+    color:var(--blue);
+  }
+  .hero p.lede{
+    font-size:17px;
+    color:var(--ink-soft);
+    max-width:480px;
+    margin-bottom:30px;
+  }
+  .hero-cta{
+    display:flex;
+    gap:14px;
+    flex-wrap:wrap;
+  }
+  .btn{
+    font-family:var(--mono);
+    font-size:13px;
+    letter-spacing:.03em;
+    padding:13px 22px;
+    border-radius:3px;
+    border:1px solid var(--ink);
+    transition:transform .15s ease, background .15s ease, color .15s ease;
+    display:inline-flex;
+    align-items:center;
+    gap:8px;
+  }
+  .btn-solid{
+    background:var(--ink);
+    color:var(--paper);
+  }
+  .btn-solid:hover{ background:var(--blue); border-color:var(--blue); transform:translateY(-1px); }
+  .btn-outline:hover{ background:var(--ink); color:var(--paper); transform:translateY(-1px); }
+
+  .hero-portrait{
+    position:relative;
+    justify-self:end;
+  }
+  .portrait-frame{
+    width:100%;
+    max-width:300px;
+    aspect-ratio:3/3.55;
+    background:var(--blue-deep);
+    padding:10px;
+    border-radius:4px;
+    position:relative;
+  }
+  .portrait-frame img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+    border-radius:2px;
+    display:block;
+    filter:grayscale(.15) contrast(1.04);
+  }
+  .portrait-tag{
+    position:absolute;
+    bottom:-14px;
+    left:-14px;
+    background:var(--paper);
+    border:1px solid var(--ink);
+    font-family:var(--mono);
+    font-size:11px;
+    padding:6px 10px;
+    letter-spacing:.04em;
+    border-radius:3px;
+  }
+  .portrait-tag b{ color:var(--green); }
+
+  /* ---------- section heading shared ---------- */
+  section{ padding:84px 0; border-bottom:1px solid var(--line); }
+  .sec-head{
+    display:flex;
+    justify-content:space-between;
+    align-items:flex-end;
+    gap:24px;
+    margin-bottom:46px;
+    flex-wrap:wrap;
+  }
+  .sec-head h2{
+    font-family:var(--display);
+    font-size:clamp(28px,3.4vw,38px);
+    font-weight:600;
+    margin-top:10px;
+  }
+  .sec-note{
+    font-family:var(--mono);
+    font-size:12.5px;
+    color:var(--ink-soft);
+    max-width:300px;
+    text-align:right;
+  }
+
+  /* ---------- about / contact strip ---------- */
+  .about-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:56px;
+  }
+  .about-grid p{ color:var(--ink-soft); margin-bottom:16px; max-width:480px; }
+  .field-list{ font-family:var(--mono); font-size:14px; }
+  .field-row{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:14px;
+    padding:13px 0;
+    border-bottom:1px solid var(--line);
+  }
+  .field-row:first-child{ border-top:1px solid var(--line); }
+  .field-key{ color:var(--ink-soft); }
+  .field-val a:hover{ color:var(--blue); text-decoration:underline; }
+
+  /* ---------- formacion / skills ---------- */
+  .split{
+    display:grid;
+    grid-template-columns:1.1fr 1fr;
+    gap:64px;
+  }
+  .timeline-item{
+    border-left:2px solid var(--blue);
+    padding-left:24px;
+    position:relative;
+    margin-bottom:36px;
+  }
+  .timeline-item::before{
+    content:"";
+    position:absolute;
+    left:-6px; top:2px;
+    width:10px; height:10px;
+    background:var(--paper);
+    border:2px solid var(--blue);
+    border-radius:50%;
+  }
+  .timeline-item .tl-period{
+    font-family:var(--mono);
+    font-size:12px;
+    color:var(--green);
+    letter-spacing:.04em;
+  }
+  .timeline-item h3{
+    font-family:var(--display);
+    font-size:21px;
+    font-weight:600;
+    margin:6px 0 6px;
+  }
+  .timeline-item p{ color:var(--ink-soft); font-size:14.5px; }
+
+  .skill-block{ margin-bottom:28px; }
+  .skill-block h4{
+    font-family:var(--mono);
+    font-size:12px;
+    text-transform:uppercase;
+    letter-spacing:.1em;
+    color:var(--ink-soft);
+    margin-bottom:14px;
+  }
+  .bar-row{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    align-items:center;
+    gap:14px;
+    margin-bottom:10px;
+  }
+  .bar-row .bar-label{ font-size:13.5px; }
+  .bar-track{
+    height:7px;
+    background:var(--paper-dim);
+    border-radius:4px;
+    overflow:hidden;
+  }
+  .bar-fill{
+    height:100%;
+    background:var(--blue);
+    border-radius:4px;
+    width:0;
+    transition:width 1s cubic-bezier(.4,0,.2,1);
+  }
+  .bar-row.alt .bar-fill{ background:var(--green); }
+
+  .soft-tags{
+    display:flex;
+    flex-wrap:wrap;
+    gap:10px;
+  }
+  .soft-tags span{
+    font-family:var(--mono);
+    font-size:12.5px;
+    padding:8px 13px;
+    border:1px solid var(--line);
+    border-radius:3px;
+    background:var(--paper-dim);
+    color:var(--ink-soft);
+  }
+
+  /* ---------- projects ---------- */
+  .project-card{
+    border:1px solid var(--line);
+    border-radius:6px;
+    overflow:hidden;
+    background:#fff;
+    margin-bottom:40px;
+  }
+  .project-card .shot-wrap{
+    background:var(--blue-deep);
+    padding:18px 18px 0;
+    position:relative;
+  }
+  .shot-bar{
+    display:flex;
+    gap:6px;
+    padding:0 2px 14px;
+  }
+  .shot-bar span{
+    width:9px; height:9px; border-radius:50%;
+    background:rgba(255,255,255,.25);
+  }
+  .project-card img{
+    width:100%;
+    display:block;
+    border-radius:4px 4px 0 0;
+    box-shadow:0 -1px 0 rgba(255,255,255,.05) inset;
+  }
+  .project-body{ padding:26px 28px 30px; }
+  .project-body .p-eyebrow{
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--green);
+    letter-spacing:.08em;
+    text-transform:uppercase;
+  }
+  .project-body h3{
+    font-family:var(--display);
+    font-size:24px;
+    font-weight:600;
+    margin:8px 0 12px;
+  }
+  .project-body p{ color:var(--ink-soft); margin-bottom:16px; max-width:620px; }
+  .tag-row{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:6px; }
+  .tag-row span{
+    font-family:var(--mono);
+    font-size:11.5px;
+    padding:5px 10px;
+    background:var(--paper-dim);
+    border-radius:3px;
+    color:var(--ink-soft);
+  }
+
+  .project-card.secondary{
+    display:grid;
+    grid-template-columns:1fr;
+  }
+  .project-card.secondary .project-body{ border-top:1px solid var(--line); }
+
+  /* ---------- footer / contact ---------- */
+  footer{ padding:60px 0 50px; }
+  .foot-grid{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    flex-wrap:wrap;
+    gap:24px;
+  }
+  .foot-cta h2{
+    font-family:var(--display);
+    font-size:clamp(26px,3.5vw,34px);
+    font-weight:600;
+    margin-bottom:8px;
+  }
+  .foot-cta p{ color:var(--ink-soft); font-size:14.5px; }
+  .foot-links{
+    display:flex;
+    gap:18px;
+    font-family:var(--mono);
+    font-size:13px;
+  }
+  .foot-links a{
+    border:1px solid var(--ink);
+    padding:11px 18px;
+    border-radius:3px;
+    transition:background .15s, color .15s;
+  }
+  .foot-links a:hover{ background:var(--ink); color:var(--paper); }
+  .copyline{
+    margin-top:40px;
+    font-family:var(--mono);
+    font-size:11.5px;
+    color:var(--ink-soft);
+    border-top:1px solid var(--line);
+    padding-top:24px;
+  }
+
+  /* ---------- reveal on scroll ---------- */
+  .reveal{
+    opacity:0;
+    transform:translateY(16px);
+    transition:opacity .6s ease, transform .6s ease;
+  }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- responsive ---------- */
+  @media (max-width:760px){
+    .wrap{ padding:0 20px; }
+    .nav-inner{ padding:16px 20px; }
+    .nav-links{ gap:16px; font-size:11.5px; }
+    .hero{ padding:48px 0 44px; }
+    .hero-inner{ grid-template-columns:1fr; gap:40px; }
+    .hero-portrait{ justify-self:start; order:-1; }
+    .portrait-frame{ max-width:180px; }
+    section{ padding:56px 0; }
+    .about-grid, .split{ grid-template-columns:1fr; gap:36px; }
+    .sec-head{ flex-direction:column; align-items:flex-start; }
+    .sec-note{ text-align:left; }
+    .foot-grid{ flex-direction:column; align-items:flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="nav">
+  <div class="nav-inner">
+    <div class="nav-id">JUAN<span>.</span>HRACEK</div>
+    <div class="nav-links">
+      <a href="#perfil">Perfil</a>
+      <a href="#formacion">Formación &amp; Skills</a>
+      <a href="#proyectos">Proyectos</a>
+    </div>
+  </div>
+</nav>
+
+<header class="hero" id="perfil">
+  <div class="wrap hero-inner">
+    <div>
+      <div class="eyebrow">Estudiante · Orientación Programación</div>
+      <h1>Juan Martin Hracek</h1>
+      <p class="lede">
+        Último año en la Escuela Técnica Ing. Eduardo Latzina N°35, especialidad Computación.
+        Busco mi primera experiencia laboral en programación y sistemas para seguir
+        aprendiendo en equipo y con responsabilidad.
+      </p>
+      <div class="hero-cta">
+        <a class="btn btn-solid" href="#proyectos">Ver proyectos →</a>
+        <a class="btn btn-outline" href="mailto:juanmartinhracekk@gmail.com">Escribirme</a>
+      </div>
+    </div>
+    <div class="hero-portrait">
+      <div class="portrait-frame">
+        <img src="C:\Users\juanm\OneDrive\Documents\Cv online\foto-juan.jpg" alt="Foto de Juan Hracek">
+      </div>
+      <div class="portrait-tag">STATUS: <b>DISPONIBLE</b></div>
+    </div>
+  </div>
+</header>
+
+<section id="contacto-datos">
+  <div class="wrap about-grid">
+    <div class="reveal">
+      <div class="eyebrow">Sobre mí</div>
+      <h2 style="font-family:var(--display);font-size:28px;font-weight:600;margin:14px 0 18px;">Quién soy</h2>
+      <p>
+        Soy Juan, estudiante de escuela técnica con interés en programación y sistemas.
+        Vengo trabajando en proyectos escolares de desarrollo web y en una herramienta de
+        gestión interna para mi propia escuela, que detallo más abajo.
+      </p>
+      <p>
+        Me interesa seguir creciendo en backend, bases de datos y buenas prácticas de
+        trabajo en equipo. Soy responsable, puntual y aprendo rápido cuando el problema
+        es nuevo.
+      </p>
+    </div>
+    <div class="reveal">
+      <div class="eyebrow">Datos de contacto</div>
+      <div class="field-list" style="margin-top:18px;">
+        
+        <div class="field-row">
+          <span class="field-key">TELÉFONO</span>
+          <span class="field-val">11 3049-0245</span>
+        </div>
+        <div class="field-row">
+          <span class="field-key">EMAIL</span>
+          <span class="field-val"><a href="mailto:juanmartinhracekk@gmail.com">juanmartinhracekk@gmail.com</a></span>
+        </div>
+        <div class="field-row">
+          <span class="field-key">IDIOMAS</span>
+          <span class="field-val">Español (nativo) · Inglés (intermedio)</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="formacion">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">Formación &amp; Habilidades</div>
+        <h2>Ficha técnica</h2>
+      </div>
+      <p class="sec-note">Conocimientos en desarrollo, organizados por nivel actual de manejo.</p>
+    </div>
+
+    <div class="split">
+      <div class="reveal">
+        <div class="timeline-item">
+          <div class="tl-period">2021 — ACTUALIDAD (último año)</div>
+          <h3>Escuela Técnica Ing. Eduardo Latzina N°35</h3>
+          <p>Orientación en Programación, especialidad Computación. Formación en lógica
+          de programación, desarrollo web y fundamentos de ciberseguridad.</p>
+        </div>
+        <div class="timeline-item">
+          <div class="tl-period">2025</div>
+          <h3>Proyecto escolar — Desarrollo web</h3>
+          <p>Diseño y construcción de un sitio web para una marca ficticia creada por
+          compañeros, presentando un producto llamado "Espejo de Bienestar Interactivo".
+          Trabajo en equipo en diseño, organización y desarrollo.</p>
+        </div>
+      </div>
+
+      <div class="reveal">
+        <div class="skill-block">
+          <h4>Lenguajes &amp; Desarrollo</h4>
+          <div class="bar-row"><span class="bar-label">HTML / CSS</span><div class="bar-track"><div class="bar-fill" data-w="82"></div></div></div>
+          <div class="bar-row"><span class="bar-label">Python</span><div class="bar-track"><div class="bar-fill" data-w="65"></div></div></div>
+          <div class="bar-row"><span class="bar-label">Java</span><div class="bar-track"><div class="bar-fill" data-w="60"></div></div></div>
+          <div class="bar-row"><span class="bar-label">C</span><div class="bar-track"><div class="bar-fill" data-w="58"></div></div></div>
+        </div>
+
+        <div class="skill-block">
+          <h4>Herramientas</h4>
+          <div class="bar-row alt"><span class="bar-label">MS Word</span><div class="bar-track"><div class="bar-fill" data-w="90"></div></div></div>
+          <div class="bar-row alt"><span class="bar-label">Canva</span><div class="bar-track"><div class="bar-fill" data-w="68"></div></div></div>
+          <div class="bar-row alt"><span class="bar-label">Excel</span><div class="bar-track"><div class="bar-fill" data-w="45"></div></div></div>
+          <div class="bar-row alt"><span class="bar-label">Ciberseguridad (básico)</span><div class="bar-track"><div class="bar-fill" data-w="40"></div></div></div>
+        </div>
+
+        <div class="skill-block">
+          <h4>Habilidades blandas</h4>
+          <div class="soft-tags">
+            <span>Responsabilidad</span>
+            <span>Puntualidad</span>
+            <span>Trabajo en equipo</span>
+            <span>Comunicación</span>
+            <span>Aprendizaje rápido</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="proyectos">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <div>
+        <div class="eyebrow">Trabajos &amp; Producciones</div>
+        <h2>Proyectos</h2>
+      </div>
+      <p class="sec-note">Lo más relevante que armé hasta ahora, en contexto escolar.</p>
+    </div>
+
+    <div class="project-card reveal">
+      <div class="shot-wrap">
+        <div class="shot-bar"><span></span><span></span><span></span></div>
+        <img src="C:\Users\juanm\OneDrive\Documents\Cv online\proyecto-convivencia.png" alt="Captura del Sistema de Convivencia Escolar, prototipo funcional">
+      </div>
+      <div class="project-body">
+        <div class="p-eyebrow">Proyecto propio · Prototipo funcional</div>
+        <h3>Sistema de Convivencia Escolar</h3>
+        <p>
+          Herramienta web para que profesores y regentes de mi escuela carguen y
+          gestionen informes de conducta de los alumnos. Incluye un flujo de cinco
+          etapas (creación, descargo, consejos, dictamen y notificación), vista de
+          informes activos y permisos diferenciados según el rol del usuario.
+        </p>
+        <div class="tag-row">
+          <span>Diseño de flujo de datos</span>
+          <span>Formularios estructurados</span>
+          <span>Permisos por rol</span>
+          <span>HTML / CSS</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="project-card secondary reveal">
+      <div class="project-body">
+        <div class="p-eyebrow">Proyecto escolar · 2025</div>
+        <h3>Sitio web — "Espejo de Bienestar Interactivo"</h3>
+        <p>
+          Página web desarrollada en equipo para presentar un producto tecnológico
+          ficticio creado por compañeros de curso a modo de cliente. Trabajé en el
+          diseño visual, la organización del contenido y el desarrollo del sitio
+          aplicando conceptos básicos de HTML y CSS.
+        </p>
+        <div class="tag-row">
+          <span>Trabajo en equipo</span>
+          <span>HTML / CSS</span>
+          <span>Presentación de producto</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer id="footer">
+  <div class="wrap">
+    <div class="foot-grid">
+      <div class="foot-cta">
+        <h2>¿Hablamos?</h2>
+        <p>Disponible para una primera experiencia laboral en programación.</p>
+      </div>
+      <div class="foot-links">
+        <a href="mailto:juanmartinhracekk@gmail.com">Email</a>
+        <a href="tel:+541130490245">Llamar</a>
+      </div>
+    </div>
+    <div class="copyline">
+      JUAN HRACEK — CV WEB · CASEROS, BUENOS AIRES · 2026
+    </div>
+  </div>
+</footer>
+
+<script>
+  // animate skill bars + fade-in sections on scroll
+  const observer = new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        entry.target.classList.add('in');
+        entry.target.querySelectorAll('.bar-fill').forEach(bar=>{
+          const w = bar.getAttribute('data-w');
+          requestAnimationFrame(()=>{ bar.style.width = w + '%'; });
+        });
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.15 });
+
+  document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+</script>
+
+</body>
+</html>
